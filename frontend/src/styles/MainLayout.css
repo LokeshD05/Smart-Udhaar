@@ -1,0 +1,12 @@
+.main-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f9fafb;
+}
+
+.main-content {
+  margin-left: 255px;
+  flex: 1;
+  min-height: 100vh;
+  overflow: auto;
+}

@@ -1,0 +1,130 @@
+.transactions-page {
+  padding: 36px;
+}
+
+.transactions-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.transactions-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.transactions-sub {
+  font-size: 13px;
+  color: #9ca3af;
+  margin: 4px 0 0;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  width: 220px;
+  transition: border-color 0.15s;
+}
+
+.search-input:focus {
+  border-color: #a5b4fc;
+}
+
+/* ── Table ── */
+.txn-table {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.txn-table-head {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr 1.5fr 1.2fr 0.8fr;
+  padding: 12px 18px;
+  border-bottom: 1px solid #f3f4f6;
+  background: #f9fafb;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #9ca3af;
+  letter-spacing: 0.5px;
+}
+
+.txn-table-row {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr 1.5fr 1.2fr 0.8fr;
+  align-items: center;
+  padding: 13px 18px;
+  border-bottom: 1px solid #f9fafb;
+  transition: background 0.1s;
+}
+
+.txn-table-row:hover {
+  background: #f9fafb;
+}
+
+.txn-table-row:last-child {
+  border-bottom: none;
+}
+
+.txn-table-cell {
+  font-size: 13px;
+  color: #374151;
+}
+
+.txn-table-cell.muted {
+  color: #9ca3af;
+}
+
+/* ── Badge ── */
+.txn-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+.badge--credit {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.badge--payment {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* ── Colors ── */
+.balance--positive {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.balance--negative {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* ── States ── */
+.loading-text {
+  color: #9ca3af;
+  font-size: 13px;
+  padding: 32px;
+  text-align: center;
+}
+
+.empty-text {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 13px;
+  padding: 48px;
+}

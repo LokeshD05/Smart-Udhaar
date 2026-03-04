@@ -19,7 +19,7 @@ export default function Sidebar() {
       <div className="sidebar-logo">
         <div className="sidebar-logo-icon">📒</div>
         <div>
-          <h1 className="sidebar-title">KhataBook</h1>
+          <h1 className="sidebar-title">Smart Udhaar</h1>
           <p className="sidebar-subtitle">Business Ledger</p>
         </div>
       </div>

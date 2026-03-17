@@ -1,5 +1,7 @@
 .dashboard {
-  padding: 28px;        
+  padding: 28px;
+  background: linear-gradient(to right, #dde0e8, #F7F5E6);
+  min-height: 100vh;
 }
 
 .dashboard-header {

@@ -1,5 +1,7 @@
 .transactions-page {
   padding: 36px;
+  background: linear-gradient(to right, #dde0e8, #F7F5E6);
+  min-height: 100vh;
 }
 
 .transactions-header {
@@ -10,50 +12,57 @@
 }
 
 .transactions-title {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 700;
   color: #111827;
   margin: 0;
 }
 
 .transactions-sub {
-  font-size: 13px;
-  color: #9ca3af;
+  font-size: 15px;
+  color: #6b7280;
   margin: 4px 0 0;
 }
 
 .search-input {
-  padding: 8px 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 13px;
+  padding: 10px 16px;
+  border: 1px solid #dddfe9;
+  border-radius: 10px;
+  font-size: 15px;
   outline: none;
-  width: 220px;
-  transition: border-color 0.15s;
+  width: 300px;
+  background: #f0f2fa;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.search-input::placeholder {
+  color: #b0b3c6;
 }
 
 .search-input:focus {
-  border-color: #a5b4fc;
+  border-color: #ffa600;
+  background: #ffffff;
 }
 
 /* ── Table ── */
 .txn-table {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
+  border: 1px solid #e2e4ed;
+  border-radius: 14px;
   overflow: hidden;
+  box-shadow: 0 2px 12px rgba(26, 15, 56, 0.05);
 }
 
 .txn-table-head {
   display: grid;
   grid-template-columns: 0.8fr 1fr 1.5fr 1.2fr 0.8fr;
-  padding: 12px 18px;
-  border-bottom: 1px solid #f3f4f6;
-  background: #f9fafb;
-  font-size: 11px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e2e4ed;
+  background: #e8eaf2;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #9ca3af;
+  color: #8b90a7;
   letter-spacing: 0.5px;
 }
 
@@ -61,13 +70,13 @@
   display: grid;
   grid-template-columns: 0.8fr 1fr 1.5fr 1.2fr 0.8fr;
   align-items: center;
-  padding: 13px 18px;
-  border-bottom: 1px solid #f9fafb;
+  padding: 15px 20px;
+  border-bottom: 1px solid #f0f2fa;
   transition: background 0.1s;
 }
 
 .txn-table-row:hover {
-  background: #f9fafb;
+  background: #f0f2fa;
 }
 
 .txn-table-row:last-child {
@@ -75,19 +84,20 @@
 }
 
 .txn-table-cell {
-  font-size: 13px;
-  color: #374151;
+  font-size: 15px;
+  color: #1e1a2e;
 }
 
 .txn-table-cell.muted {
-  color: #9ca3af;
+  font-size: 14px;
+  color: #8b90a7;
 }
 
 /* ── Badge ── */
 .txn-badge {
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   text-transform: capitalize;
   display: inline-block;
@@ -116,15 +126,15 @@
 
 /* ── States ── */
 .loading-text {
-  color: #9ca3af;
-  font-size: 13px;
+  color: #8b90a7;
+  font-size: 15px;
   padding: 32px;
   text-align: center;
 }
 
 .empty-text {
   text-align: center;
-  color: #9ca3af;
-  font-size: 13px;
+  color: #8b90a7;
+  font-size: 15px;
   padding: 48px;
 }

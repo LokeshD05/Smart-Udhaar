@@ -17,7 +17,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <div className="sidebar-logo-icon">📒</div>
+        {/* <div className="sidebar-logo-icon">📒</div> */}
         <div>
           <h1 className="sidebar-title">Smart Udhaar</h1>
           <p className="sidebar-subtitle">Business Ledger</p>
@@ -26,13 +26,13 @@ export default function Sidebar() {
 
       <nav className="sidebar-nav">
         <NavLink to="/dashboard" className={({ isActive }) => `sidebar-link ${isActive ? "sidebar-link--active" : ""}`}>
-          📊 Dashboard
+         Dashboard
         </NavLink>
         <NavLink to="/customers" className={({ isActive }) => `sidebar-link ${isActive ? "sidebar-link--active" : ""}`}>
-          👥 Customers
+           Customers
         </NavLink>
         <NavLink to="/transactions" className={({ isActive }) => `sidebar-link ${isActive ? "sidebar-link--active" : ""}`}>
-          💸 Transactions
+           Transactions
         </NavLink>
       </nav>
 

@@ -8,7 +8,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .transactions-title {
@@ -35,53 +35,172 @@
   transition: border-color 0.15s, background 0.15s;
 }
 
-.search-input::placeholder {
-  color: #b0b3c6;
-}
+.search-input::placeholder { color: #b0b3c6; }
 
 .search-input:focus {
-  border-color: #ffa600;
+  border-color: #2dd4bf;
   background: #ffffff;
+}
+
+/* ── Filter bar ── */
+.txn-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.txn-filter-pills {
+  display: flex;
+  gap: 6px;
+}
+
+.txn-filter-pill {
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid #c8cad8;
+  background: rgba(255, 255, 255, 0.6);
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.txn-filter-pill:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #a0a4b8;
+}
+
+.txn-filter-pill--active {
+  background: #0d0d14;
+  color: #f0f0f5;
+  border-color: #0d0d14;
+}
+
+.txn-filter-pill--active:hover {
+  background: #1a1a2e;
+}
+
+/* Custom date range */
+.txn-custom-range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.txn-date-input {
+  padding: 7px 12px;
+  border: 1px solid #c8cad8;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  background: rgba(255, 255, 255, 0.7);
+  color: #1a1f35;
+  outline: none;
+  cursor: pointer;
+}
+
+.txn-date-input:focus { border-color: #2dd4bf; }
+
+.txn-range-sep {
+  font-size: 13px;
+  color: #7a8099;
+}
+
+/* Summary pills */
+.txn-summary {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.txn-summary-pill {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.txn-summary--credit {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.txn-summary--payment {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.txn-summary--count {
+  background: rgba(255, 255, 255, 0.6);
+  color: #7a8099;
+  border: 1px solid #c8cad8;
 }
 
 /* ── Table ── */
 .txn-table {
-  background: #ffffff;
-  border: 1px solid #e2e4ed;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(26, 15, 56, 0.05);
+  box-shadow: 0 4px 16px rgba(13, 13, 20, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .txn-table-head {
   display: grid;
   grid-template-columns: 0.8fr 1fr 1.5fr 1.2fr 0.8fr;
   padding: 14px 20px;
-  border-bottom: 1px solid #e2e4ed;
-  background: #e8eaf2;
+  border-bottom: 2px solid #d0d3e2;
+  background: #0d0d14;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #8b90a7;
+  color: rgba(45, 212, 191, 0.8);
   letter-spacing: 0.5px;
+}
+
+/* ── Date group header ── */
+.txn-date-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: rgba(13, 13, 20, 0.04);
+  border-bottom: 1px solid #e0e2ea;
+  border-top: 1px solid #e0e2ea;
+}
+
+.txn-date-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1f35;
+  letter-spacing: 0.02em;
+}
+
+.txn-date-count {
+  font-size: 11px;
+  color: #9ca3af;
+  font-weight: 500;
 }
 
 .txn-table-row {
   display: grid;
   grid-template-columns: 0.8fr 1fr 1.5fr 1.2fr 0.8fr;
   align-items: center;
-  padding: 15px 20px;
-  border-bottom: 1px solid #f0f2fa;
+  padding: 14px 20px;
+  border-bottom: 1px solid #eef0f6;
   transition: background 0.1s;
 }
 
-.txn-table-row:hover {
-  background: #f0f2fa;
-}
-
-.txn-table-row:last-child {
-  border-bottom: none;
-}
+.txn-table-row:hover { background: rgba(255, 255, 255, 0.6); }
+.txn-table-row:last-child { border-bottom: none; }
 
 .txn-table-cell {
   font-size: 15px;
@@ -103,28 +222,12 @@
   display: inline-block;
 }
 
-.badge--credit {
-  background: #f0fdf4;
-  color: #16a34a;
-}
+.badge--credit { background: #f0fdf4; color: #16a34a; }
+.badge--payment { background: #fef2f2; color: #dc2626; }
 
-.badge--payment {
-  background: #fef2f2;
-  color: #dc2626;
-}
+.balance--positive { color: #16a34a; font-weight: 600; }
+.balance--negative { color: #dc2626; font-weight: 600; }
 
-/* ── Colors ── */
-.balance--positive {
-  color: #16a34a;
-  font-weight: 600;
-}
-
-.balance--negative {
-  color: #dc2626;
-  font-weight: 600;
-}
-
-/* ── States ── */
 .loading-text {
   color: #8b90a7;
   font-size: 15px;

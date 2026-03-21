@@ -51,11 +51,64 @@ export const getDashboardSummary = async (req, res) => {
                         {
                             $count: "totalCustomers"
                         }
+                    ],
+
+                    topDebtors: [
+                        {
+                            $group: {
+                                _id: "$customerId",
+                                totalCredit: {
+                                    $sum: {
+                                        $cond: [{ $eq: ["$type", "credit"] }, "$amount", 0]
+                                    }
+                                },
+                                totalPayment: {
+                                    $sum: {
+                                        $cond: [{ $eq: ["$type", "payment"] }, "$amount", 0]
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            $lookup: {
+                                from: "customers",
+                                localField: "_id",        // ✅ fixed: was "customerId"
+                                foreignField: "_id",
+                                as: "customer"
+                            }
+                        },
+                        {
+                            $unwind: "$customer"
+                        },
+                        {
+                            $project: {
+                                customerId: "$_id",
+                                name: "$customer.name",   // ✅ added
+                                debt: {
+                                    $subtract: ["$totalCredit", "$totalPayment"]
+                                }
+                            }
+                        },
+                        {
+                            $sort: { debt: -1 }
+                        },
+                        {
+                            $limit: 5
+                        }
+                    ],
+
+                    recentTransactions: [
+                        {
+                            $sort: { createdAt: -1 }
+                        },
+                        {
+                            $limit: 5
+                        }
                     ]
                 }
             }
         ]);
-        
+
         //! must revise this 
         //* use ?? instead
         const result = aggregateTransactions[0] || {};
@@ -68,10 +121,17 @@ export const getDashboardSummary = async (req, res) => {
         };
 
         const totalCustomers = result.CustomerCount?.[0]?.totalCustomers || 0;
+
+        const topDebtors = result.topDebtors ?? [];
+        const recentTransactions = result.recentTransactions ?? [];
+
         res.status(200).json({
             ...dashboardSummary,
-            totalCustomers
+            totalCustomers,
+            topDebtors,
+            recentTransactions
         });
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Internal server Error" })

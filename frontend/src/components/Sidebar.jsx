@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import API from "../utils/api.js";
-import "../styles/Sidebar.css";
+import "../styles/sidebar.css";
 
 export default function Sidebar() {
   const navigate = useNavigate();

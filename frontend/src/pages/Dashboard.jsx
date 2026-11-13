@@ -120,21 +120,22 @@ export default function Dashboard() {
             <div className="recent-list">
               {summary.recentTransactions.map((t) => (
                 <div key={t._id} className="recent-item">
-                  <div className="recent-type">
+                  <div className="recent-left">
                     <span className={`txn-badge ${t.type === "credit" ? "badge--credit" : "badge--payment"}`}>
                       {t.type}
                     </span>
+                    <span className="recent-note">{t.note || "—"}</span>
                   </div>
-                  <span className="recent-customer" title={t.customerName}>{t.customerName || "—"}</span>
-                  <span className="recent-note" title={t.note}>{t.note || "—"}</span>
-                  <span className="recent-time">
-                    {new Date(t.createdAt).toLocaleTimeString("en-IN", {
-                      hour: "2-digit", minute: "2-digit",
-                    })}
-                  </span>
+                  <div className="recent-right">
                     <span className={`recent-amount ${t.type === "credit" ? "balance--negative" : "balance--positive"}`}>
                       {t.type === "credit" ? "+" : "-"}₹{t.amount.toLocaleString()}
                     </span>
+                    <span className="recent-date">
+                      {new Date(t.createdAt).toLocaleDateString("en-IN", {
+                        day: "numeric", month: "short",
+                      })}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>

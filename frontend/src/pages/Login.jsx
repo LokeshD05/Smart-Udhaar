@@ -33,30 +33,30 @@ function Login() {
         <div className="auth-brand">
           <div className="auth-brand-icon">⚡</div>
           <div>
-            <div className="auth-brand-name">LedgerPro</div>
-            <div className="auth-brand-sub">Business Suite</div>
+            <div className="auth-brand-name">Smart Udhaar</div>
+            <div className="auth-brand-sub">Your digital udhaar ledger</div>
           </div>
         </div>
 
         <h1 className="auth-left-title">
-          Manage your finances<br />with <span>clarity</span>
+          Every udhaar.<br /><span>Clearly accounted for.</span>
         </h1>
         <p className="auth-left-desc">
-          Track customers, transactions, and balances — all in one place. Built for businesses that move fast.
+          Know who owes you, record every repayment, and pick up right where you left off. Your shop's accounts, all in one place.
         </p>
 
         <div className="auth-stats">
           <div>
-            <div className="auth-stat-value">2.4k</div>
-            <div className="auth-stat-label">Customers</div>
+            <div className="auth-stat-value">Give</div>
+            <div className="auth-stat-label">Record udhaar</div>
           </div>
           <div>
-            <div className="auth-stat-value">₹18M</div>
-            <div className="auth-stat-label">Tracked</div>
+            <div className="auth-stat-value">Receive</div>
+            <div className="auth-stat-label">Log repayments</div>
           </div>
           <div>
-            <div className="auth-stat-value">99%</div>
-            <div className="auth-stat-label">Uptime</div>
+            <div className="auth-stat-value">Track</div>
+            <div className="auth-stat-label">See what's pending</div>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@ function Login() {
           <div className="auth-divider">or</div>
 
           <p className="auth-footer-text">
-            Don't have an account? <Link to="/register">Register</Link>
+            Don't have an account? <Link to="/register" viewTransition>Register</Link>
           </p>
         </div>
       </div>

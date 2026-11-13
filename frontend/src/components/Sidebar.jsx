@@ -34,7 +34,6 @@ export default function Sidebar() {
         {/* <div className="sidebar-logo-icon">📒</div> */}
         <div>
           <h1 className="sidebar-title">Smart Udhaar</h1>
-          <p className="sidebar-subtitle">Business Ledger</p>
         </div>
       </div>
 
@@ -52,7 +51,7 @@ export default function Sidebar() {
 
       <div className="sidebar-footer">
         <div className="sidebar-user">
-          <div className="sidebar-avatar">U</div>
+          <div className="sidebar-avatar">S</div>
           <p className="sidebar-user-name">{shopName}</p>
         </div>
         <button className="logout-btn" onClick={handleLogout}>Logout</button>

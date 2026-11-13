@@ -73,10 +73,10 @@ export default function Transactions({ customerTransactions, customerLoading, cu
 
       {/* Header */}
       <div className="transactions-header">
-        <div>
+        {!embedded && <div>
           <h2 className="transactions-title">{embedded ? "Transactions" : "All Transactions"}</h2>
           <p className="transactions-sub">{embedded ? `Complete history for ${customerName}` : "Complete history across all customers"}</p>
-        </div>
+        </div>}
         <input
           type="text"
           placeholder="Search by name, type, note..."

@@ -1,4 +1,5 @@
 import "../styles/Transactions.css";
+import { Link } from "react-router-dom";
 
 function formatGroupDate(dateStr) {
   const date = new Date(dateStr);
@@ -53,7 +54,7 @@ export default function TransactionTable({ transactions, loading, customerName, 
               {txns
                 .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                 .map((t) => (
-                  <div key={t._id} className="txn-table-row">
+                  <TransactionRow key={t._id} transaction={t} clickable={!hideCustomer}>
                     <span>
                       <span className={`txn-badge ${t.type === "credit" ? "badge--credit" : "badge--payment"}`}>
                         {t.type}
@@ -67,13 +68,25 @@ export default function TransactionTable({ transactions, loading, customerName, 
                       })}
                     </span>
                     <span className={`txn-table-cell ${t.type === "credit" ? "balance--negative" : "balance--positive"}`}>
-                      {t.type === "credit" ? "+" : "-"}₹{t.amount.toLocaleString()}
+                      {t.type === "credit" ? "-" : "+"}₹{t.amount.toLocaleString()}
                     </span>
-                  </div>
+                  </TransactionRow>
                 ))}
             </div>
           ))
         )}
       </div>
+  );
+}
+
+function TransactionRow({ transaction, clickable, children }) {
+  if (!clickable) return <div className="txn-table-row">{children}</div>;
+  return (
+    <Link
+      className="txn-table-row txn-table-row--clickable"
+      to={`/customers?customerId=${encodeURIComponent(transaction.customerId?._id || transaction.customerId)}`}
+    >
+      {children}
+    </Link>
   );
 }

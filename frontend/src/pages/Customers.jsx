@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import API from "../utils/api.js";
 import Transactions from "./Transactions.jsx";
+import PhoneInput from "../components/PhoneInput.jsx";
 import "../styles/customers.css";
 
 export default function Customers() {
+  const [searchParams] = useSearchParams();
+  const customerId = searchParams.get("customerId");
   const [customers, setCustomers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [transactions, setTransactions] = useState([]);
@@ -14,6 +18,8 @@ export default function Customers() {
   const [showCustomerModal, setShowCustomerModal] = useState(false);
   const [form, setForm] = useState({ name: "", phone: "", address: "", balance: "" });
   const [adding, setAdding] = useState(false);
+  const [countryCode, setCountryCode] = useState("+91");
+  const [phoneError, setPhoneError] = useState("");
 
   const [showTxnModal, setShowTxnModal] = useState(false);
   const [txnForm, setTxnForm] = useState({ amount: "", type: "credit", note: "" });
@@ -28,12 +34,15 @@ export default function Customers() {
       .then((res) => {
         console.log("customers data:", res.data);
         setCustomers(res.data);
+        if (customerId) {
+          setSelected(res.data.find((customer) => customer._id === customerId) || null);
+        }
       })
       .catch((err) => {
         console.log("error:", err.response?.status, err.response?.data);
       })
       .finally(() => setLoadingCustomers(false));
-  }, []);
+  }, [customerId]);
 
   useEffect(() => {
     if (!selected) return;
@@ -46,11 +55,17 @@ export default function Customers() {
 
   const handleAddCustomer = async () => {
     if (!form.name.trim()) return;
+    if (!/^[0-9]{10}$/.test(form.phone)) {
+      setPhoneError("Enter exactly 10 digits for the mobile number.");
+      return;
+    }
+    setPhoneError("");
     setAdding(true);
     try {
-      const res = await API.post("/customers", form);
+      const res = await API.post("/customers", { ...form, phone: `${countryCode}${form.phone}` });
       setCustomers((prev) => [res.data, ...prev]);
       setForm({ name: "", phone: "", address: "", balance: "" });
+      setCountryCode("+91");
       setShowCustomerModal(false);
     } catch (err) {
       console.error(err);
@@ -87,7 +102,7 @@ export default function Customers() {
     (c) =>
       c.name.toLowerCase().includes(search.toLowerCase()) ||
       c.phone?.includes(search)
-  );
+  ).sort((a, b) => a.name.localeCompare(b.name, "en", { sensitivity: "base", numeric: true }));
 
   return (
     <div className="customers-layout">
@@ -124,14 +139,13 @@ export default function Customers() {
                   <div className="customer-avatar">{c.name[0].toUpperCase()}</div>
                   <div>
                     <p className="customer-name">{c.name}</p>
-                    {c.phone && <p className="customer-phone">{c.phone}</p>}                                {/* isn't phone number required in backend why checking && */}
+                    {c.phone && <p className="customer-phone">{c.phone}</p>}
                   </div>
                 </div>
                 <div className="customer-balance-wrap">
-                  <p className={`customer-balance ${c.balance >= 0 ? "balance--positive" : "balance--negative"}`}>  {/* why do we even checking negative*/ }
+                  <p className="customer-balance">
                     ₹{Math.abs(c.balance).toLocaleString()}
                   </p>
-                  <p className="balance-label">{c.balance >= 0 ? "to receive" : "to pay"}</p>
                 </div>
               </button>
             ))
@@ -151,21 +165,23 @@ export default function Customers() {
             <div className="txn-header">
               <div className="txn-header-left">
                 <div className="txn-avatar">{selected.name[0].toUpperCase()}</div>
-                <div>
+                <div className="txn-customer-details">
                   <h3 className="txn-customer-name">{selected.name}</h3>
                   <div className="txn-customer-meta">
-                    {selected.phone && <span>{selected.phone}</span>}
-                    {selected.address && <span>{selected.address}</span>}
+                    {selected.phone && (
+                      <div className="txn-contact">
+                        <span>{selected.phone}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
               <div className="txn-header-right">
                 <div>
-                  <p className="txn-balance-label">Net Balance</p>
-                  <p className={`txn-balance-value ${selected.balance >= 0 ? "balance--positive" : "balance--negative"}`}>
+                  <p className="txn-balance-label">Pending Amount</p>
+                  <p className="txn-balance-value">
                     ₹{Math.abs(selected.balance).toLocaleString()}
                   </p>
-                  <p className="txn-balance-sublabel">{selected.balance >= 0 ? "you will receive" : "you will pay"}</p>
                 </div>
                 <button className="btn-primary" onClick={() => setShowTxnModal(true)}>+ Add Entry</button>
               </div>
@@ -189,8 +205,8 @@ export default function Customers() {
             <div className="modal-body">
               <input type="text" placeholder="Customer name *" value={form.name}
                 onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))} className="modal-input" />
-              <input type="tel" placeholder="Phone number" value={form.phone}
-                onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))} className="modal-input" />
+              <PhoneInput className="modal-input" value={form.phone} onChange={(phone) => { setForm((prev) => ({ ...prev, phone })); setPhoneError(""); }} countryCode={countryCode} onCountryCodeChange={setCountryCode} />
+              {phoneError && <p role="alert" style={{ color: "#dc2626", margin: 0 }}>{phoneError}</p>}
               <input type="text" placeholder="Address" value={form.address}
                 onChange={(e) => setForm((p) => ({ ...p, address: e.target.value }))} className="modal-input" />
               <input type="number" placeholder="Opening balance (₹)" value={form.balance}

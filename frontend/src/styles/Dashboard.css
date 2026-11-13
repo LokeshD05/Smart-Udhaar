@@ -44,7 +44,10 @@
 
 /* ── Hero full-width card ── */
 .card-full {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  box-sizing: border-box;
+  height: 118px;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 14px;
@@ -60,6 +63,35 @@
 .card-full-right {
   display: flex;
   gap: 24px;
+  justify-self: end;
+}
+
+.card-full .card-label {
+  font-size: 40px;
+  color: rgba(45, 212, 191, 0.8);
+  margin: 0;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.card-full .card-value-large {
+  font-size: 40px;
+  color: rgba(45, 212, 191, 0.8);
+  text-align: center;
+}
+
+.card-full .card-mini-label {
+  font-size: 12px;
+  color: rgba(45, 212, 191, 0.8);
+}
+
+.card-full .card-mini-value {
+  font-size: 18px;
+}
+
+.card-full.dashboard-card {
+  background: #0d0d14ec;
+  border-color: rgba(45, 212, 191, 0.15);
 }
 
 .card-mini-stat {
@@ -116,6 +148,19 @@
   margin: 0;
 }
 
+.cards-row .card-label {
+  color: #000000;
+}
+
+
+.cards-row .card-value {
+  font-size: 30px;
+  color: #0d9488;
+}
+
+.cards-row .card-value--credit { color: #dc2626; }
+.cards-row .card-value--payment { color: #16a34a; }
+
 .card-hint {
   font-size: 11px;
   color: #9ca3af;
@@ -125,7 +170,7 @@
 /* ── Bottom row: panels ── */
 .dashboard-bottom-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 14px;
   margin-top: 14px;
 }
@@ -141,7 +186,7 @@
 }
 
 .panel-header {
-  background: #0d0d14;
+  background: #0d0d14ec;
   padding: 14px 18px;
   border-bottom: 1px solid rgba(45, 212, 191, 0.15);
   display: flex;
@@ -152,13 +197,13 @@
 .panel-title {
   font-size: 14px;
   font-weight: 700;
-  color: #f0f0f5;
+  color: rgba(45, 212, 191, 0.8);
   margin: 0;
 }
 
 .panel-sub {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.35);
+  font-size: 13px;
+  color: rgba(45, 212, 191, 0.8);
 }
 
 /* ── Top Debtors ── */
@@ -168,15 +213,17 @@
 }
 
 .debtor-item {
+  text-decoration: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 12px 18px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   transition: background 0.1s;
 }
 
-.debtor-item:hover { background: rgba(255, 255, 255, 0.4); }
+.debtor-item:hover { background: rgba(45, 212, 191, 0.08); }
 .debtor-item:last-child { border-bottom: none; }
 
 .debtor-left {
@@ -207,9 +254,16 @@
 }
 
 .debtor-name {
-  font-size: 14px;
+  text-decoration: none;
+  font-size: 16px;
+  margin-left: 60px;
   font-weight: 500;
   color: #1a1f35;
+}
+
+.debtor-item:focus-visible {
+  outline: none;
+  background: rgba(45, 212, 191, 0.08);
 }
 
 .debtor-amount {
@@ -227,42 +281,55 @@
 }
 
 .recent-item {
-  display: flex;
+  text-decoration: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1.2fr) minmax(0, 0.8fr);
+  column-gap: 8px;
+  box-sizing: border-box;
+  height: 70px;
   align-items: center;
-  justify-content: space-between;
   padding: 12px 18px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   transition: background 0.1s;
 }
 
-.recent-item:hover { background: rgba(255, 255, 255, 0.4); }
+.recent-item:hover,
+.recent-item:focus-visible {
+  background: rgba(45, 212, 191, 0.08);
+  outline: none;
+}
 .recent-item:last-child { border-bottom: none; }
 
-.recent-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.recent-type {
+  min-width: 0;
 }
 
+.recent-customer,
 .recent-note {
-  font-size: 13px;
-  color: #4b5563;
-  max-width: 160px;
+  min-width: 0;
+  font-size: 14px;
+  color: #8b90a7;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.recent-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
+.recent-customer {
+  color: #1e1a2e;
+  font-size: 15px;
+}
+
+.recent-time {
+  font-size: 14px;
+  color: #8b90a7;
+  white-space: nowrap;
 }
 
 .recent-amount {
   font-size: 14px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .recent-date {

@@ -1,5 +1,7 @@
 .dashboard {
-  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 28px 8px;
   background: linear-gradient(135deg, #dde0e8, #F7F5E6);
   min-height: 100vh;
 }
@@ -47,7 +49,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   box-sizing: border-box;
-  height: 118px;
+  height: 90px;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 14px;
@@ -67,7 +69,7 @@
 }
 
 .card-full .card-label {
-  font-size: 40px;
+  font-size: 34px;
   color: rgba(45, 212, 191, 0.8);
   margin: 0;
   text-transform: none;
@@ -75,8 +77,8 @@
 }
 
 .card-full .card-value-large {
-  font-size: 40px;
-  color: rgba(45, 212, 191, 0.8);
+  font-size: 34px;
+  color: #dc2626;
   text-align: center;
 }
 
@@ -169,6 +171,8 @@
 
 /* ── Bottom row: panels ── */
 .dashboard-bottom-row {
+  flex: 0 0 auto;
+  min-height: 420px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 14px;
@@ -224,7 +228,6 @@
 }
 
 .debtor-item:hover { background: rgba(45, 212, 191, 0.08); }
-.debtor-item:last-child { border-bottom: none; }
 
 .debtor-left {
   display: flex;
@@ -299,7 +302,6 @@
   background: rgba(45, 212, 191, 0.08);
   outline: none;
 }
-.recent-item:last-child { border-bottom: none; }
 
 .recent-type {
   min-width: 0;

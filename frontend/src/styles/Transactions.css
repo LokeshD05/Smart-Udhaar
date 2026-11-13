@@ -125,15 +125,15 @@
 }
 
 .txn-summary--credit {
-  background: #f0fdf4;
-  color: #16a34a;
-  border: 1px solid #bbf7d0;
-}
-
-.txn-summary--payment {
   background: #fef2f2;
   color: #dc2626;
   border: 1px solid #fecaca;
+}
+
+.txn-summary--payment {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
 }
 
 .txn-summary--count {
@@ -200,6 +200,10 @@
 }
 
 .txn-table-row:hover { background: rgba(255, 255, 255, 0.6); }
+.txn-table--customer-history .txn-table-head,
+.txn-table--customer-history .txn-table-row {
+  grid-template-columns: 0.8fr 1.5fr 1.2fr 0.8fr;
+}
 .txn-table-row:last-child { border-bottom: none; }
 
 .txn-table-cell {
@@ -222,8 +226,8 @@
   display: inline-block;
 }
 
-.badge--credit { background: #f0fdf4; color: #16a34a; }
-.badge--payment { background: #fef2f2; color: #dc2626; }
+.badge--credit { background: #fef2f2; color: #dc2626; }
+.badge--payment { background: #f0fdf4; color: #16a34a; }
 
 .balance--positive { color: #16a34a; font-weight: 600; }
 .balance--negative { color: #dc2626; font-weight: 600; }

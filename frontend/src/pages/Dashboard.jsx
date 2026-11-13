@@ -127,7 +127,7 @@ export default function Dashboard() {
                     <span className="recent-note">{t.note || "—"}</span>
                   </div>
                   <div className="recent-right">
-                    <span className={`recent-amount ${t.type === "credit" ? "balance--positive" : "balance--negative"}`}>
+                    <span className={`recent-amount ${t.type === "credit" ? "balance--negative" : "balance--positive"}`}>
                       {t.type === "credit" ? "+" : "-"}₹{t.amount.toLocaleString()}
                     </span>
                     <span className="recent-date">

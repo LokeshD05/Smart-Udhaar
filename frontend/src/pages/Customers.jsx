@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../utils/api.js";
+import Transactions from "./Transactions.jsx";
 import "../styles/customers.css";
 
 export default function Customers() {
@@ -170,33 +171,8 @@ export default function Customers() {
               </div>
             </div>
 
-            <div className="txn-list">
-              {loadingTxn ? (
-                <p className="loading-text">Loading transactions...</p>
-              ) : transactions.length === 0 ? (
-                <p className="empty-text">No transactions yet</p>
-              ) : (
-                transactions.map((t) => (
-                  <div key={t._id} className="txn-item">
-                    <div className="txn-item-left">
-                      <div className={`txn-badge ${t.type === "credit" ? "badge--credit" : "badge--payment"}`}>
-                        {t.type === "credit" ? "Credit" : "Payment"}
-                      </div>
-                      {t.note && <p className="txn-note">{t.note}</p>}
-                    </div>
-                    <div className="txn-item-right">
-                      <p className={`txn-amount ${t.type === "credit" ? "balance--positive" : "balance--negative"}`}>
-                        {t.type === "credit" ? "+" : "-"}₹{t.amount.toLocaleString()}
-                      </p>
-                      <p className="txn-date">
-                        {new Date(t.createdAt).toLocaleDateString("en-IN", {
-                          day: "numeric", month: "short", year: "numeric",
-                        })}
-                      </p>
-                    </div>
-                  </div>
-                ))
-              )}
+            <div className="customer-transactions">
+              <Transactions key={selected._id} customerTransactions={transactions} customerLoading={loadingTxn} customerName={selected.name} />
             </div>
           </>
         )}

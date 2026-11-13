@@ -2,6 +2,18 @@ import bcrypt from "bcrypt"
 import userModel from "../models/user.js";
 import jwt from "jsonwebtoken";
 
+export const getProfile = async (req, res) => {
+    try {
+        const user = await userModel.findById(req.user._id).select('shopName');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        return res.json({ shopName: user.shopName });
+    } catch {
+        return res.status(500).json({ message: 'Failed to load profile' });
+    }
+};
+
 export const register = async (req, res) => {
     const { name, email, password, phone, shopName } = req.body;
 

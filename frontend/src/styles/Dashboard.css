@@ -82,8 +82,8 @@
   font-weight: 700;
 }
 
-.card-mini-value.credit { color: #16a34a; }
-.card-mini-value.payment { color: #dc2626; }
+.card-mini-value.credit { color: #dc2626; }
+.card-mini-value.payment { color: #16a34a; }
 
 /* ── Stat cards grid ── */
 .cards-row {
@@ -280,8 +280,8 @@
   display: inline-block;
 }
 
-.badge--credit { background: #f0fdf4; color: #16a34a; }
-.badge--payment { background: #fef2f2; color: #dc2626; }
+.badge--credit { background: #fef2f2; color: #dc2626; }
+.badge--payment { background: #f0fdf4; color: #16a34a; }
 .balance--positive { color: #16a34a; font-weight: 600; }
 .balance--negative { color: #dc2626; font-weight: 600; }
 

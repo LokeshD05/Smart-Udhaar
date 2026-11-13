@@ -26,14 +26,22 @@
 }
 
 .customers-panel-title-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
+}
+
+.customers-panel-title-row .btn-primary {
+  justify-self: end;
+  padding: 10px 12px;
 }
 
 .customers-panel-title {
-  font-size: 17px;
-  font-weight: 600;
+  grid-column: 2;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
   color: #f5e6e8;
   margin: 0;
 }
@@ -118,10 +126,46 @@
 /* ── Transaction Panel ── */
 .txn-panel {
   flex: 1;
+  min-width: 0;
   background: linear-gradient(to right, #dde0e8, #F7F5E6);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.customer-transactions {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0;
+}
+
+.customer-transactions .txn-table {
+  min-width: 660px;
+  border-radius: 0;
+  border-left: none;
+}
+
+.customer-transactions-content .transactions-header {
+  padding: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.customer-transactions-content .txn-filter-bar {
+  padding: 0 20px;
+}
+
+.customer-transactions-content .txn-filter-pills {
+  flex-wrap: wrap;
+}
+
+.customer-transactions-content .search-input {
+  max-width: 100%;
+}
+
+.customers-panel-header .search-input {
+  width: 100%;
 }
 
 /* ── Txn Header — matches sidebar ── */
@@ -233,8 +277,8 @@
   text-transform: capitalize;
 }
 
-.badge--credit { background: #f0fdf4; color: #16a34a; }
-.badge--payment { background: #fef2f2; color: #dc2626; }
+.badge--credit { background: #fef2f2; color: #dc2626; }
+.badge--payment { background: #f0fdf4; color: #16a34a; }
 
 .txn-note {
   font-size: 13px;
@@ -440,7 +484,7 @@
   transition: background 0.1s;
 }
 
-.toggle--credit { background: #16a34a; color: #ffffff; }
-.toggle--payment { background: #dc2626; color: #ffffff; }
+.toggle--credit { background: #dc2626; color: #ffffff; }
+.toggle--payment { background: #16a34a; color: #ffffff; }
 .toggle--inactive { background: #dcdcdc; color: #4b5563; }
 .toggle--inactive:hover { background: #d0d0d0; }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../utils/api.js";
+import TransactionTable from "../components/TransactionTable.jsx";
 import "../styles/Transactions.css";
 
 const FILTERS = ["All", "Today", "This Week", "This Month", "Custom"];
@@ -20,20 +21,8 @@ function getStartOf(filter) {
   return null;
 }
 
-function formatGroupDate(dateStr) {
-  const date = new Date(dateStr);
-  const today = new Date();
-  const yesterday = new Date();
-  yesterday.setDate(today.getDate() - 1);
-
-  if (date.toDateString() === today.toDateString()) return "Today";
-  if (date.toDateString() === yesterday.toDateString()) return "Yesterday";
-  return date.toLocaleDateString("en-IN", {
-    weekday: "long", day: "numeric", month: "long", year: "numeric",
-  });
-}
-
-export default function Transactions() {
+export default function Transactions({ customerTransactions, customerLoading, customerName }) {
+  const embedded = customerTransactions !== undefined;
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -42,11 +31,12 @@ export default function Transactions() {
   const [customTo, setCustomTo] = useState("");
 
   useEffect(() => {
+    if (embedded) return;
     API.get("/transactions")
       .then((res) => setTransactions(res.data))
       .catch(console.error)
       .finally(() => setLoading(false));
-  }, []);
+  }, [embedded]);
 
   const applyFilter = (t) => {
     const date = new Date(t.createdAt);
@@ -62,26 +52,13 @@ export default function Transactions() {
     return date >= start;
   };
 
-  const filtered = transactions
+  const filtered = (embedded ? customerTransactions : transactions)
     .filter(applyFilter)
     .filter((t) =>
       t.note?.toLowerCase().includes(search.toLowerCase()) ||
       t.type.includes(search.toLowerCase()) ||
       t.customerId?.name?.toLowerCase().includes(search.toLowerCase())
     );
-
-  // Group by date
-  const grouped = filtered.reduce((acc, t) => {
-    const dateKey = new Date(t.createdAt).toDateString();
-    if (!acc[dateKey]) acc[dateKey] = [];
-    acc[dateKey].push(t);
-    return acc;
-  }, {});
-
-  // Sort groups newest first
-  const sortedGroups = Object.entries(grouped).sort(
-    (a, b) => new Date(b[0]) - new Date(a[0])
-  );
 
   // Summary
   const totalCredit = filtered
@@ -92,14 +69,14 @@ export default function Transactions() {
     .reduce((sum, t) => sum + t.amount, 0);
 
   return (
-    <div className="transactions-page">
+    <div className={embedded ? "customer-transactions-content" : "transactions-page"}>
 
       {/* Header */}
       <div className="transactions-header">
-        <div>
-          <h2 className="transactions-title">All Transactions</h2>
-          <p className="transactions-sub">Complete history across all customers</p>
-        </div>
+        {!embedded && <div>
+          <h2 className="transactions-title">{embedded ? "Transactions" : "All Transactions"}</h2>
+          <p className="transactions-sub">{embedded ? `Complete history for ${customerName}` : "Complete history across all customers"}</p>
+        </div>}
         <input
           type="text"
           placeholder="Search by name, type, note..."
@@ -156,53 +133,7 @@ export default function Transactions() {
       </div>
 
       {/* Table */}
-      <div className="txn-table">
-        <div className="txn-table-head">
-          <span>Type</span>
-          <span>Customer</span>
-          <span>Note</span>
-          <span>Time</span>
-          <span>Amount</span>
-        </div>
-
-        {loading ? (
-          <p className="loading-text">Loading...</p>
-        ) : filtered.length === 0 ? (
-          <p className="empty-text">No transactions found</p>
-        ) : (
-          sortedGroups.map(([dateKey, txns]) => (
-            <div key={dateKey}>
-              {/* Date group header */}
-              <div className="txn-date-group">
-                <span className="txn-date-label">{formatGroupDate(dateKey)}</span>
-                <span className="txn-date-count">{txns.length} transactions</span>
-              </div>
-
-              {txns
-                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                .map((t) => (
-                  <div key={t._id} className="txn-table-row">
-                    <span>
-                      <span className={`txn-badge ${t.type === "credit" ? "badge--credit" : "badge--payment"}`}>
-                        {t.type}
-                      </span>
-                    </span>
-                    <span className="txn-table-cell">{t.customerId?.name || "—"}</span>
-                    <span className="txn-table-cell muted">{t.note || "—"}</span>
-                    <span className="txn-table-cell muted">
-                      {new Date(t.createdAt).toLocaleTimeString("en-IN", {
-                        hour: "2-digit", minute: "2-digit",
-                      })}
-                    </span>
-                    <span className={`txn-table-cell ${t.type === "credit" ? "balance--positive" : "balance--negative"}`}>
-                      {t.type === "credit" ? "+" : "-"}₹{t.amount.toLocaleString()}
-                    </span>
-                  </div>
-                ))}
-            </div>
-          ))
-        )}
-      </div>
+      <TransactionTable transactions={filtered} loading={embedded ? customerLoading : loading} customerName={customerName} hideCustomer={embedded} />
     </div>
   );
 }

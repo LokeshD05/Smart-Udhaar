@@ -1,7 +1,9 @@
 import express from 'express'
-import { login, logOut, register } from '../controllers/authController.js';
+import { login, logOut, register, getProfile } from '../controllers/authController.js';
+import authMiddleware from '../middleware/authMiddleware.js';
 
 const authRouter = express.Router();
+authRouter.get('/me', authMiddleware, getProfile);
 
 authRouter.post('/register',register)
 authRouter.post('/login',login)

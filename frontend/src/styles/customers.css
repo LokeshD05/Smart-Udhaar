@@ -9,7 +9,7 @@
 .customers-panel {
   width: 30vw;
   flex-shrink: 0;
-  border-right: 1px solid #c8cacf;
+  border-right: none;
   background: #E8E8E8;
   display: flex;
   flex-direction: column;
@@ -26,14 +26,23 @@
 }
 
 .customers-panel-title-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
+}
+
+.customers-panel-title-row .btn-primary {
+  justify-self: end;
+  padding: 10px 12px;
 }
 
 .customers-panel-title {
-  font-size: 17px;
-  font-weight: 600;
+  padding-left: 20px;
+  grid-column: 1;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: left;
   color: #f5e6e8;
   margin: 0;
 }
@@ -71,6 +80,7 @@
   gap: 10px;
 }
 
+
 .customer-avatar {
   width: 38px;
   height: 38px;
@@ -101,6 +111,7 @@
 .customer-balance-wrap { text-align: right; }
 
 .customer-balance {
+  color: #dc2626;
   font-size: 15px;
   font-weight: 600;
   margin: 0;
@@ -118,15 +129,56 @@
 /* ── Transaction Panel ── */
 .txn-panel {
   flex: 1;
+  min-width: 0;
   background: linear-gradient(to right, #dde0e8, #F7F5E6);
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
+.customer-transactions {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0;
+}
+
+.customer-transactions .txn-table {
+  min-width: 660px;
+  border-radius: 0;
+  border-left: none;
+}
+
+.customer-transactions .txn-table-head {
+  background: #0d0d14ec;
+}
+
+.customer-transactions-content .transactions-header {
+  padding: 20px;
+  margin-bottom: 0;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.customer-transactions-content .txn-filter-bar {
+  padding: 0 20px;
+}
+
+.customer-transactions-content .txn-filter-pills {
+  flex-wrap: wrap;
+}
+
+.customer-transactions-content .search-input {
+  max-width: 100%;
+}
+
+.customers-panel-header .search-input {
+  width: 100%;
+}
+
 /* ── Txn Header — matches sidebar ── */
 .txn-header {
-  background: #0d0d14;
+  background: #0d0d14ec;
   border-bottom: 1px solid rgba(45, 212, 191, 0.15);
   padding: 16px 22px;
   display: flex;
@@ -156,9 +208,9 @@
 }
 
 .txn-customer-name {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
-  color: #f0f0f5;
+  color: rgba(45, 212, 191, 0.8);
   margin: 0;
 }
 
@@ -168,9 +220,28 @@
   margin-top: 3px;
 }
 
+.txn-customer-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.txn-customer-details .txn-customer-meta {
+  margin-top: 0;
+  margin-left: 50px;
+}
+
+.txn-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+
 .txn-customer-meta span {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.35);
+  font-size: 17px;
+  color: #ffffff;
 }
 
 .txn-header-right {
@@ -180,8 +251,8 @@
 }
 
 .txn-balance-label {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.35);
+  font-size: 16px;
+  color: rgba(45, 212, 191, 0.8);
   margin: 0;
   text-align: right;
 }
@@ -190,7 +261,7 @@
   font-size: 24px;
   font-weight: 700;
   margin: 2px 0;
-  color: #f0f0f5;
+  color: #dc2626;
 }
 
 .txn-balance-sublabel {
@@ -233,8 +304,8 @@
   text-transform: capitalize;
 }
 
-.badge--credit { background: #f0fdf4; color: #16a34a; }
-.badge--payment { background: #fef2f2; color: #dc2626; }
+.badge--credit { background: #fef2f2; color: #dc2626; }
+.badge--payment { background: #f0fdf4; color: #16a34a; }
 
 .txn-note {
   font-size: 13px;
@@ -440,7 +511,7 @@
   transition: background 0.1s;
 }
 
-.toggle--credit { background: #16a34a; color: #ffffff; }
-.toggle--payment { background: #dc2626; color: #ffffff; }
+.toggle--credit { background: #dc2626; color: #ffffff; }
+.toggle--payment { background: #16a34a; color: #ffffff; }
 .toggle--inactive { background: #dcdcdc; color: #4b5563; }
 .toggle--inactive:hover { background: #d0d0d0; }

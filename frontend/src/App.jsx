@@ -5,6 +5,7 @@ import Customers from "./pages/Customers";
 import Transactions from "./pages/Transactions";
 import Dashboard from "./pages/Dashboard";
 import MainLayout from "./layouts/MainLayout"
+import "./styles/auth-transition.css";
 function App() {
   return (
     <Routes>

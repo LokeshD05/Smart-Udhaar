@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import API from "../utils/api.js";
 import "../styles/Dashboard.css";
 
@@ -21,22 +22,15 @@ export default function Dashboard() {
     <div className="dashboard">
 
       {/* ── Header ── */}
-      <div className="dashboard-header">
-        <div>
-          <h2 className="dashboard-title">Dashboard</h2>
-          <p className="dashboard-sub">Here's your business summary</p>
-        </div>
-      </div>
 
       {/* ── Row 1: Pending Amount (full width hero) ── */}
       <div className="card-full dashboard-card">
         <div className="card-full-left">
           <p className="card-label">Pending Amount</p>
+        </div>
           <p className="card-value-large">
             ₹{summary.pendingAmount.toLocaleString()}
           </p>
-          <p className="card-hint">Total credit minus total payments received</p>
-        </div>
         <div className="card-full-right">
           <div className="card-mini-stat">
             <span className="card-mini-label">Given</span>
@@ -57,23 +51,19 @@ export default function Dashboard() {
       <div className="cards-row">
         <div className="dashboard-card">
           <p className="card-label">Total Credit Given</p>
-          <p className="card-value">₹{summary.totalCredit.toLocaleString()}</p>
-          <p className="card-hint">Money you gave to customers</p>
+          <p className="card-value card-value--credit">₹{summary.totalCredit.toLocaleString()}</p>
         </div>
         <div className="dashboard-card">
           <p className="card-label">Total Payment Received</p>
-          <p className="card-value">₹{summary.totalPayment.toLocaleString()}</p>
-          <p className="card-hint">Money customers paid back</p>
+          <p className="card-value card-value--payment">₹{summary.totalPayment.toLocaleString()}</p>
         </div>
         <div className="dashboard-card">
           <p className="card-label">Total Transactions</p>
           <p className="card-value">{summary.totalTransactions.toLocaleString()}</p>
-          <p className="card-hint">All entries recorded</p>
         </div>
         <div className="dashboard-card">
           <p className="card-label">Active Customers</p>
           <p className="card-value">{summary.totalCustomers}</p>
-          <p className="card-hint">Customers with transactions</p>
         </div>
       </div>
 
@@ -91,7 +81,7 @@ export default function Dashboard() {
           ) : (
             <div className="debtor-list">
               {summary.topDebtors.map((d, i) => (
-                <div key={d.customerId} className="debtor-item">
+                <Link key={d.customerId} className="debtor-item" to={`/customers?customerId=${encodeURIComponent(d.customerId)}`}>
                   <div className="debtor-left">
                     <div className="debtor-rank">#{i + 1}</div>
                     <div className="debtor-avatar">
@@ -102,7 +92,7 @@ export default function Dashboard() {
                   <span className={`debtor-amount ${d.debt > 0 ? "debt--positive" : "debt--clear"}`}>
                     {d.debt > 0 ? `₹${d.debt.toLocaleString()}` : "Cleared"}
                   </span>
-                </div>
+                </Link>
               ))}
             </div>
           )}
@@ -119,24 +109,23 @@ export default function Dashboard() {
           ) : (
             <div className="recent-list">
               {summary.recentTransactions.map((t) => (
-                <div key={t._id} className="recent-item">
-                  <div className="recent-left">
+                <Link key={t._id} className="recent-item" to={`/customers?customerId=${encodeURIComponent(t.customerId?._id || t.customerId)}`}>
+                  <div className="recent-type">
                     <span className={`txn-badge ${t.type === "credit" ? "badge--credit" : "badge--payment"}`}>
                       {t.type}
                     </span>
-                    <span className="recent-note">{t.note || "—"}</span>
                   </div>
-                  <div className="recent-right">
-                    <span className={`recent-amount ${t.type === "credit" ? "balance--positive" : "balance--negative"}`}>
-                      {t.type === "credit" ? "+" : "-"}₹{t.amount.toLocaleString()}
+                  <span className="recent-customer" title={t.customerName}>{t.customerName || "—"}</span>
+                  <span className="recent-note" title={t.note}>{t.note || "—"}</span>
+                  <span className="recent-time">
+                    {new Date(t.createdAt).toLocaleTimeString("en-IN", {
+                      hour: "2-digit", minute: "2-digit",
+                    })}
+                  </span>
+                    <span className={`recent-amount ${t.type === "credit" ? "balance--negative" : "balance--positive"}`}>
+                      {t.type === "credit" ? "-" : "+"}₹{t.amount.toLocaleString()}
                     </span>
-                    <span className="recent-date">
-                      {new Date(t.createdAt).toLocaleDateString("en-IN", {
-                        day: "numeric", month: "short",
-                      })}
-                    </span>
-                  </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}

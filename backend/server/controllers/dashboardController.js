@@ -103,6 +103,20 @@ export const getDashboardSummary = async (req, res) => {
                         },
                         {
                             $limit: 5
+                        },
+                        {
+                            $lookup: {
+                                from: "customers",
+                                localField: "customerId",
+                                foreignField: "_id",
+                                as: "customer"
+                            }
+                        },
+                        {
+                            $set: { customerName: { $arrayElemAt: ["$customer.name", 0] } }
+                        },
+                        {
+                            $unset: "customer"
                         }
                     ]
                 }

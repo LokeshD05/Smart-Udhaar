@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import API from "../utils/api.js";
 import "../styles/sidebar.css";
 
-export default function Sidebar() {
+export default function Sidebar({ open, onNavigate }) {
   const navigate = useNavigate();
   const [shopName, setShopName] = useState("My Business");
 
@@ -29,7 +29,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="sidebar">
+    <aside id="main-sidebar" className={open ? "sidebar sidebar--open" : "sidebar"}>
       <div className="sidebar-logo">
         {/* <div className="sidebar-logo-icon">📒</div> */}
         <div>
@@ -38,13 +38,13 @@ export default function Sidebar() {
       </div>
 
       <nav className="sidebar-nav">
-        <NavLink to="/dashboard" className={({ isActive }) => `sidebar-link ${isActive ? "sidebar-link--active" : ""}`}>
+        <NavLink to="/dashboard" onClick={onNavigate} className={({ isActive }) => `sidebar-link ${isActive ? "sidebar-link--active" : ""}`}>
          Dashboard
         </NavLink>
-        <NavLink to="/customers" className={({ isActive }) => `sidebar-link ${isActive ? "sidebar-link--active" : ""}`}>
+        <NavLink to="/customers" onClick={onNavigate} className={({ isActive }) => `sidebar-link ${isActive ? "sidebar-link--active" : ""}`}>
            Customers
         </NavLink>
-        <NavLink to="/transactions" className={({ isActive }) => `sidebar-link ${isActive ? "sidebar-link--active" : ""}`}>
+        <NavLink to="/transactions" onClick={onNavigate} className={({ isActive }) => `sidebar-link ${isActive ? "sidebar-link--active" : ""}`}>
            Transactions
         </NavLink>
       </nav>

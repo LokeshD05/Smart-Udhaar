@@ -8,10 +8,9 @@
   display: flex;
   align-items: stretch;
   min-height: 100vh;
-  font-family: 'DM Sans', sans-serif;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #dde0e8, #F7F5E6);
+  background: var(--canvas);
 }
 
 .register-container::after {
@@ -19,7 +18,7 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--panel) 40%, transparent), transparent);
   z-index: 4;
 }
 
@@ -27,7 +26,7 @@
 .register-slash {
   position: absolute;
   inset: 0;
-  background: #0d0d14;
+  background: var(--chrome);
   clip-path: polygon(58% 0, 100% 0, 100% 100%, 42% 100%);
   z-index: 1;
 }
@@ -37,7 +36,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(45, 212, 191, 0.05) 1px, transparent 1px);
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--panel) 5%, transparent) 1px, transparent 1px);
   background-size: 18px 18px;
 }
 
@@ -74,13 +73,13 @@
 .register-brand-name {
   font-size: 22px;
   font-weight: 700;
-  color: #0d0d14;
+  color: var(--ink);
   letter-spacing: 0.02em;
 }
 
 .register-brand-sub {
   font-size: 10px;
-  color: #7a8099;
+  color: var(--muted);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-top: 2px;
@@ -88,19 +87,19 @@
 
 .register-left-title {
   font-size: 28px;
-  font-weight: 700;
-  color: #0d0d14;
+  font-weight: 600;
+  color: var(--ink);
   line-height: 1.3;
   margin-bottom: 12px;
 }
 
 .register-left-title span {
-  color: #0d9488;
+  color: var(--brand);
 }
 
 .register-left-desc {
   font-size: 13px;
-  color: #7a8099;
+  color: var(--muted);
   line-height: 1.8;
   max-width: 300px;
   margin-bottom: 28px;
@@ -130,7 +129,7 @@
 
 .register-feature-text {
   font-size: 13px;
-  color: #4b5563;
+  color: var(--muted);
 }
 
 .register-stats {
@@ -140,13 +139,13 @@
 
 .register-stat-value {
   font-size: 22px;
-  font-weight: 700;
-  color: #0d9488;
+  font-weight: 600;
+  color: var(--brand);
 }
 
 .register-stat-label {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--muted);
   margin-top: 2px;
 }
 
@@ -168,14 +167,14 @@
 
 .register-form-title {
   font-size: 24px;
-  font-weight: 700;
-  color: #f0f0f5;
+  font-weight: 600;
+  color: var(--on-brand);
   margin: 0 0 4px;
 }
 
 .register-form-sub {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--on-brand);
   margin: 0 0 24px;
 }
 
@@ -193,49 +192,47 @@
   display: block;
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--on-brand);
   margin-bottom: 6px;
 }
 
 .register-input {
   width: 100%;
   padding: 11px 14px;
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border: 1.5px solid color-mix(in srgb, var(--ink) 10%, transparent);
   border-radius: 9px;
   font-size: 14px;
-  font-family: 'DM Sans', sans-serif;
-  background: rgba(255, 255, 255, 0.06);
-  color: #f0f0f5;
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  color: var(--on-brand);
   outline: none;
   transition: border-color 0.15s, background 0.15s;
 }
 
 .register-input::placeholder {
-  color: rgba(255, 255, 255, 0.2);
+  color: var(--on-brand);
 }
 
 .register-input:focus {
-  border-color: rgba(45, 212, 191, 0.5);
-  background: rgba(255, 255, 255, 0.09);
+  border-color: color-mix(in srgb, var(--panel) 50%, transparent);
+  background: color-mix(in srgb, var(--ink) 9%, transparent);
 }
 
 .register-btn {
   width: 100%;
   padding: 13px;
-  background: #2dd4bf;
-  color: #0d0d14;
+  background: var(--panel);
+  color: var(--ink);
   border: none;
   border-radius: 9px;
   font-size: 15px;
-  font-weight: 700;
-  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.15s;
   margin-top: 6px;
 }
 
 .register-btn:hover {
-  background: #26bfab;
+  background: var(--success-surface);
 }
 
 .register-divider {
@@ -243,7 +240,7 @@
   align-items: center;
   gap: 12px;
   margin: 18px 0;
-  color: rgba(255, 255, 255, 0.2);
+  color: var(--on-brand);
   font-size: 12px;
 }
 
@@ -252,17 +249,17 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: rgba(255, 255, 255, 0.1);
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
 }
 
 .register-footer-text {
   text-align: center;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--on-brand);
 }
 
 .register-footer-text a {
-  color: #2dd4bf;
+  color: var(--brand);
   font-weight: 600;
   text-decoration: none;
 }
@@ -273,7 +270,7 @@
 
 @media (max-width: 768px) {
   .register-container {
-    background: linear-gradient(135deg, #dde0e8, #F7F5E6);
+    background: var(--canvas);
   }
 
   .register-slash { display: none; }
@@ -282,7 +279,7 @@
   .register-right {
     width: 100%;
     padding: 48px 24px;
-    background: #0d0d14;
+    background: var(--chrome);
     min-height: 100vh;
   }
 

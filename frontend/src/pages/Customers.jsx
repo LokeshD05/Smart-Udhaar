@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import API from "../utils/api.js";
 import Transactions from "./Transactions.jsx";
@@ -10,6 +10,7 @@ export default function Customers() {
   const customerId = searchParams.get("customerId");
   const [customers, setCustomers] = useState([]);
   const [selected, setSelected] = useState(null);
+  const transactionPanel = useRef(null);
   const [transactions, setTransactions] = useState([]);
   const [loadingCustomers, setLoadingCustomers] = useState(true);
   const [loadingTxn, setLoadingTxn] = useState(false);
@@ -133,7 +134,12 @@ export default function Customers() {
               <button
                 key={c._id}
                 className={`customer-item ${selected?._id === c._id ? "customer-item--active" : ""}`}
-                onClick={() => setSelected(c)}
+                onClick={() => {
+                  setSelected(c);
+                  if (window.matchMedia("(max-width: 768px)").matches) {
+                    transactionPanel.current?.scrollIntoView({ block: "start" });
+                  }
+                }}
               >
                 <div className="customer-item-left">
                   <div className="customer-avatar">{c.name[0].toUpperCase()}</div>
@@ -154,7 +160,7 @@ export default function Customers() {
       </div>
 
       {/* ── Transactions Panel ── */}
-      <div className="txn-panel">
+      <div className="txn-panel" ref={transactionPanel}>
         {!selected ? (
           <div className="empty-state">
             <p className="empty-title">Select a customer</p>
@@ -206,7 +212,7 @@ export default function Customers() {
               <input type="text" placeholder="Customer name *" value={form.name}
                 onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))} className="modal-input" />
               <PhoneInput className="modal-input" value={form.phone} onChange={(phone) => { setForm((prev) => ({ ...prev, phone })); setPhoneError(""); }} countryCode={countryCode} onCountryCodeChange={setCountryCode} />
-              {phoneError && <p role="alert" style={{ color: "#dc2626", margin: 0 }}>{phoneError}</p>}
+              {phoneError && <p role="alert" style={{ color: "var(--credit)", margin: 0 }}>{phoneError}</p>}
               <input type="text" placeholder="Address" value={form.address}
                 onChange={(e) => setForm((p) => ({ ...p, address: e.target.value }))} className="modal-input" />
               <input type="number" placeholder="Opening balance (₹)" value={form.balance}

@@ -29,6 +29,7 @@ export default function TransactionTable({ transactions, loading, customerName, 
   );
 
   return (
+    <div className="txn-table-scroll" tabIndex={0} role="region" aria-label="Transaction history">
       <div className={`txn-table${hideCustomer ? " txn-table--customer-history" : ""}`}>
         <div className="txn-table-head">
           <span>Type</span>
@@ -76,6 +77,7 @@ export default function TransactionTable({ transactions, loading, customerName, 
           ))
         )}
       </div>
+    </div>
   );
 }
 

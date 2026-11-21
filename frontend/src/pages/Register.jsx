@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../utils/api";
 import PhoneInput from "../components/PhoneInput.jsx";
+import "../styles/auth.css";
 import "../styles/Register.css";
 
 function Register() {
@@ -28,50 +29,13 @@ function Register() {
 
       {/* Left — light branding */}
       <div className="register-left">
-        <div className="register-brand">
-          <div className="register-brand-icon">⚡</div>
-          <div>
-            <div className="register-brand-name">Smart Udhaar</div>
-            <div className="register-brand-sub">Your digital udhaar ledger</div>
-          </div>
-        </div>
-
-        <h1 className="register-left-title">
-          Less paperwork.<br /><span>Clearer hisaab.</span>
-        </h1>
-        <p className="register-left-desc">
-          Give your shop a simpler way to track udhaar. Keep customer accounts, payments, and pending balances together from day one.
-        </p>
-
-        <div className="register-features">
-          <div className="register-feature">
-            <div className="register-feature-dot" />
-            <span className="register-feature-text">Know exactly what each customer owes</span>
-          </div>
-          <div className="register-feature">
-            <div className="register-feature-dot" />
-            <span className="register-feature-text">Record udhaar and repayments in a few clicks</span>
-          </div>
-          <div className="register-feature">
-            <div className="register-feature-dot" />
-            <span className="register-feature-text">See your shop's pending amount at a glance</span>
-          </div>
-        </div>
-
-        <div className="register-stats">
-          <div>
-            <div className="register-stat-value">Customers</div>
-            <div className="register-stat-label">Every account together</div>
-          </div>
-          <div>
-            <div className="register-stat-value">Entries</div>
-            <div className="register-stat-label">Every transaction recorded</div>
-          </div>
-          <div>
-            <div className="register-stat-value">Balances</div>
-            <div className="register-stat-label">Every rupee accounted for</div>
-          </div>
-        </div>
+        <h1 className="auth-brand-name">Smart Udhaar</h1>
+        <p className="auth-brand-sub">A simpler way to keep your shop’s accounts.</p>
+        <ul className="auth-brand-points" role="list">
+          <li>Customer balances</li>
+          <li>Repayments</li>
+          <li>Transaction history</li>
+        </ul>
       </div>
 
       {/* Right — dark form */}
@@ -93,8 +57,8 @@ function Register() {
             </div>
 
             <div className="register-field-group">
-              <label className="register-label">Shop Name</label>
-              <input className="register-input" name="shopName" placeholder="My Business" required onChange={handleChange} />
+              <label className="register-label" htmlFor="register-shop-name">Shop Name (optional)</label>
+              <input className="register-input" id="register-shop-name" name="shopName" placeholder="My Business" onChange={handleChange} />
             </div>
 
             <div className="register-field-group">
@@ -103,8 +67,8 @@ function Register() {
             </div>
 
             <div className="register-field-group">
-              <label className="register-label">Password</label>
-              <input className="register-input" type="password" name="password" placeholder="••••••••" required onChange={handleChange} />
+              <label className="register-label" htmlFor="register-password">Password (at least 8 characters)</label>
+              <input className="register-input" id="register-password" type="password" name="password" placeholder="••••••••" minLength={8} required onChange={handleChange} />
             </div>
 
             <button className="register-btn" type="submit">Create account</button>

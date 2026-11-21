@@ -17,8 +17,11 @@ export const getProfile = async (req, res) => {
 export const register = async (req, res) => {
     const { name, email, password, phone, shopName } = req.body;
 
-    if (!name || !email || !password || !phone || !shopName) {
+    if (!name || !email || !password || !phone) {
         return res.json({ success: false, message: 'fill all the details' });
+    }
+    if (typeof password !== "string" || password.length < 8) {
+        return res.status(400).json({ success: false, message: "Password must be at least 8 characters long" });
     }
     try {
         const existingUser = await userModel.findOne({ email });

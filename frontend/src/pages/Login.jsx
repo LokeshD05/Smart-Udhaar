@@ -30,35 +30,13 @@ function Login() {
 
       {/* Left branding */}
       <div className="auth-left">
-        <div className="auth-brand">
-          <div className="auth-brand-icon">⚡</div>
-          <div>
-            <div className="auth-brand-name">Smart Udhaar</div>
-            <div className="auth-brand-sub">Your digital udhaar ledger</div>
-          </div>
-        </div>
-
-        <h1 className="auth-left-title">
-          Every udhaar.<br /><span>Clearly accounted for.</span>
-        </h1>
-        <p className="auth-left-desc">
-          Know who owes you, record every repayment, and pick up right where you left off. Your shop's accounts, all in one place.
-        </p>
-
-        <div className="auth-stats">
-          <div>
-            <div className="auth-stat-value">Give</div>
-            <div className="auth-stat-label">Record udhaar</div>
-          </div>
-          <div>
-            <div className="auth-stat-value">Receive</div>
-            <div className="auth-stat-label">Log repayments</div>
-          </div>
-          <div>
-            <div className="auth-stat-value">Track</div>
-            <div className="auth-stat-label">See what's pending</div>
-          </div>
-        </div>
+        <h1 className="auth-brand-name">Smart Udhaar</h1>
+        <p className="auth-brand-sub">Your shop’s udhaar, all in one ledger.</p>
+        <ul className="auth-brand-points" role="list">
+          <li>Customer balances</li>
+          <li>Repayments</li>
+          <li>Transaction history</li>
+        </ul>
       </div>
 
       {/* Diagonal gradient background */}
